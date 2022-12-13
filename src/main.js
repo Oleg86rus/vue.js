@@ -1,6 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import TheHeader from './components/TheHeader.vue'
+import './theme.css'
+// import './assets/main.css'
 
-import './assets/main.css'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.component('the-header', TheHeader)
+app.mount('#app')
