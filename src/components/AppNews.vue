@@ -1,8 +1,13 @@
 <template>
   <div class="card">
     <h3>{{ title }}</h3>
-    <button class="btn" @click="isOpen = !isOpen">Открыть</button>
-    <p v-if="isOpen">Lorem ipsum dolor sit amet.</p>
+    <button class="btn" @click="open">{{ isNewsOpen ? 'Закрыть' : 'Открыть' }}</button>
+    <button class="btn danger" v-if="wasRead" @click="$emit('unmark',this.id)">Отметить непрочитанной</button>
+    <div v-if="isNewsOpen">
+      <hr/>
+      <p>Lorem ipsum dolor sit amet.</p>
+      <button v-if="!wasRead" class="btn primary" @click="mark">Прочесть новость</button>
+    </div>
   </div>
 </template>
 
@@ -11,10 +16,55 @@ export default {
   name: 'AppNews',
   data() {
     return {
-      isOpen: false
+      isNewsOpen: this.isOpen
     }
   },
-  props: ['title']
+  methods: {
+    open() {
+      this.isNewsOpen = !this.isNewsOpen
+      if (this.isNewsOpen) this.$emit('open-news')
+    },
+    mark() {
+      this.isNewsOpen = false
+      this.$emit('read-news', this.id)
+    },
+    // unMark() {
+    //   this.$emit('unmark', this.id)
+    // }
+  },
+  // emits: ['open-news'],
+  emits: {
+    'open-news': null,
+    'read-news'(id) {
+      if (id) return true
+      console.warn('Нет параметра id для emit read-news')
+      return false
+    },
+    unmark: null
+  },
+  // props: ['title']
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    id: {
+      type: Number,
+      required: true
+    },
+    isOpen: {
+      type: Boolean,
+      required: false,
+      default: false,
+      validator (value) {
+        console.log(value)
+        return value === true || value === false
+      }
+    },
+    wasRead: {
+      type: Boolean
+    }
+  }
 }
 </script>
 
