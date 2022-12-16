@@ -1,27 +1,37 @@
 <template>
   <div class="container pt-1">
     <div class="card">
-      <h2>Slots</h2>
-    </div>
-    <app-block>
-      <template v-slot:header>
-      <h3>Это заголовок!</h3>
-      </template>
-      <p>Это самый важный текст для нового блока</p>
+      <h2>Динамические и асинхронные компоненты</h2>
 
-      <template #footer>
-        <h3>FOOTER</h3>
-      </template>
-    </app-block>
+      <app-button :color="active === 'one' ? 'primary' : ''"  @action="active = 'one'">One</app-button>
+      <app-button :color="active === 'two' ? 'primary' : ''" @action="active = 'two'">Two</app-button>
+    </div>
+<!--    <app-text-one v-if="active === 'one'"></app-text-one>-->
+<!--    <app-text-two v-if="active === 'two'"></app-text-two>-->
+
+    <component :is="componentName"></component>
   </div>
 </template>
 
 <script>
-import AppBlock from './components/AppBlock.vue'
-
+import AppButton from './components/AppButton.vue'
+import AppTextOne from './components/AppTextOne.vue'
+import AppTextTwo from './components/AppTextTwo.vue'
 
 export default {
-  components: { AppBlock }
+  components: { AppButton, AppTextOne, AppTextTwo },
+  computed: {
+    componentName() {
+      // if (this.active === 'one') return 'app-text-one'
+      // return 'app-text-two'
+      return 'app-text-' + this.active
+    }
+  },
+  data() {
+    return {
+      active: 'one' // two
+    }
+  }
 }
 </script>
 
