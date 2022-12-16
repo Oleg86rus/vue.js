@@ -3,13 +3,13 @@
     <div class="card">
       <h2>Динамические и асинхронные компоненты</h2>
 
-      <app-button :color="active === 'one' ? 'primary' : ''"  @action="active = 'one'">One</app-button>
-      <app-button :color="active === 'two' ? 'primary' : ''" @action="active = 'two'">Two</app-button>
+      <app-button :color="oneColor"  @action="active = 'one'">One</app-button>
+      <app-button :color="twoColor" @action="active = 'two'">Two</app-button>
     </div>
-<!--    <app-text-one v-if="active === 'one'"></app-text-one>-->
-<!--    <app-text-two v-if="active === 'two'"></app-text-two>-->
 
-    <component :is="componentName"></component>
+    <keep-alive>
+      <component :is="componentName"></component>
+    </keep-alive>
   </div>
 </template>
 
@@ -22,9 +22,13 @@ export default {
   components: { AppButton, AppTextOne, AppTextTwo },
   computed: {
     componentName() {
-      // if (this.active === 'one') return 'app-text-one'
-      // return 'app-text-two'
       return 'app-text-' + this.active
+    },
+    oneColor() {
+      return this.active === 'one' ? 'primary' : ''
+    },
+    twoColor() {
+      return this.active === 'two' ? 'primary' : ''
     }
   },
   data() {
