@@ -17,6 +17,11 @@ export default {
       }
     }
   },
+  methods: {
+    btnLog() {
+      console.log('Button LOG')
+    }
+  }
 }
 </script>
 
