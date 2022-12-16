@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import AppNews from './components/AppNews.vue'
+import AppNews from './components_old_example/AppNews.vue'
 export default {
   data() {
     return {
