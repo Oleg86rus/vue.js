@@ -1,64 +1,61 @@
 <template>
   <div class="container pt-1">
     <div class="card">
-      <h2>Актуальные новости {{ now }}</h2>
+      <async-component></async-component>
+      <h2>Динамические и асинхронные компоненты</h2>
+
+      <app-button ref="myBtn" :color="oneColor"  @action="active = 'one'">One</app-button>
+      <app-button :color="twoColor" @action="active = 'two'">Two</app-button>
     </div>
-    <app-news/>
-    <app-news/>
-    <app-news/>
-    <AppNews/>
+
+    <keep-alive>
+      <component :is="componentName"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import AppNews from './components/AppNews.vue'
+import AppButton from './components/AppButton.vue'
+import AppTextOne from './components/AppTextOne.vue'
+import AppTextTwo from './components/AppTextTwo.vue'
+
 export default {
-  data() {
-    return {
-      now: new Date().toLocaleDateString(),
-      isOpen: false,
-      news: [
-          'Изучаем Vue 3',
-          'Vue 3 успешно работает'
-      ]
+  components: { AppButton, AppTextOne, AppTextTwo },
+  mounted() {
+    // setTimeout(() => {
+    //   this.componentName = 'new comp name'
+    // }, 1500)
+    this.$refs.myBtn.btnLog()
+  },
+  computed: {
+    // componentName() {
+    //   return 'app-text-' + this.active
+    // },
+    componentName: {
+      get() {
+        return 'app-text-' + this.active
+      },
+      set(value) {
+        console.log('componentName', value)
+      }
+    },
+    oneColor() {
+      return this.active === 'one' ? 'primary' : ''
+    },
+    twoColor() {
+      return this.active === 'two' ? 'primary' : ''
     }
   },
-  components: {
-    // 'app-news': AppNews
-    // 'AppNews': AppNews
-    AppNews
+  data() {
+    return {
+      active: 'one' // two
+    }
   }
 }
 </script>
 
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
