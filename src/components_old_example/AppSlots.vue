@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import AppBlock from './components/AppBlock.vue'
+import AppBlock from './components_old_example/AppBlock.vue'
 
 
 export default {
