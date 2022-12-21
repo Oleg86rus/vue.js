@@ -1,11 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './theme.css'
+import translatePlugin from './translatePlugin'
 
-createApp(App)
-	// .directive('focus', {
-	// 	mounted(el) {
-	// 		el.focus()
-	// 	}
-	// })
-	.mount('#app')
+const app = createApp(App)
+
+app.use(translatePlugin)
+
+app.mount('#app')
