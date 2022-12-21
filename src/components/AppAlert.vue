@@ -1,8 +1,13 @@
 <template>
-  <div class="alert" v-if="alert" :class="alert.type">
-    <h3>{{ alert.title }}</h3>
-    <p>{{ alert.text }}</p>
-    <button class="btn" :class="alert.type" @click="$emit('close')">Закрыть</button>
+  <div class="alert" :class="type">
+    <p class="alert-title">{{ title }}</p>
+    <p>{{ text }}</p>
+    <button
+        class="btn"
+        :class="type"
+        v-if="closable"
+        @click="$emit('close')"
+    >Закрыть</button>
   </div>
 </template>
 
@@ -10,7 +15,23 @@
 export default {
   name: 'AppAlert',
   emits: ['close'],
-  props: ['alert']
+  props: {
+    text: String,
+    title: String,
+    closable: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    type: {
+      type: String,
+      default: 'primary',
+      required: false,
+      validator(val) {
+        return ['primary', 'danger', 'warning'].includes(val)
+      }
+    }
+  }
 }
 </script>
 

@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <app-alert
-      v-if="alert"
-      text="Это очень важное сообщение, будьте бдительны!"
-      title="Внимание"
-      @close="alert = false"
+        v-if="alert"
+        text="Это очень важное сообщение, будьте бдительны!"
+        title="Внимание"
+        type="warning"
+        closable
+        @close="alert = false"
     ></app-alert>
 
     <div class="card">
@@ -12,16 +14,14 @@
         {{ alert ? 'Скрыть сообщение' : 'Показать сообщение' }}
       </button>
     </div>
-    <app-block></app-block>
   </div>
 </template>
 
 <script>
-import AppAlert from './components/AppAlert.vue'
-import AppBlock from './components/AppBlock.vue'
+import AppAlert from './AppAlert.vue'
 
 export default {
-  components: {AppAlert, AppBlock},
+  components: {AppAlert},
   data() {
     return {
       alert: false
