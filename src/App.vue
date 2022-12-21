@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div class="card" >
-      <h2>Как работают плагины во Vue</h2>
 
-      <button class="btn" @click="$alert('Wow it is working')">Alert</button>
     </div>
   </div>
 </template>
