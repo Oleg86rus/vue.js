@@ -1,11 +1,25 @@
 <template>
   <header class="navbar">
-    Vuex
+    <strong>Счетчик {{ counter }}</strong>
+    <button class="btn" @click="add">Добавить</button>
   </header>
 </template>
 
 <script>
   export default {
-
+    computed: {
+      counter() {
+        return this.$store.state.counter
+      }
+    },
+    methods: {
+      add() {
+        // this.$store.commit('add', 5)
+        this.$store.commit({
+          type: 'add',
+          value: 5
+        })
+      }
+    }
   }
 </script>
