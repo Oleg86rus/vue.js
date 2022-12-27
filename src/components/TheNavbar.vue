@@ -13,11 +13,11 @@ import {mapGetters, mapMutations} from 'vuex'
       // counter() {
       //   return this.$store.getters.counter
       // },
-      ...mapGetters(['counter'])
+      ...mapGetters(['count/counter'])
     },
     methods: {
       ...mapMutations({
-        addFive: 'add'
+        addFive: 'count/add'
       }),
       add() {
         this.addFive({value: 5})
