@@ -1,46 +1,29 @@
 <template>
-  <the-navbar></the-navbar>
-  <div class="container with-nav">
-    <div class="card">
-      <h1>{{ uppercaseTitle }}</h1>
-      <h2>Счетчик {{ counter }} ({{ doubleCounter }})</h2>
-      <button class="btn primary" @click="add">Добавить</button>
-      <button class="btn danger" @click="incrementAsync({ value: 10, delay: 250 })">Добавить 10</button>
+  <div className="container">
+    <div className="card">
+      <h1>Vue Composition Api</h1>
+      <hr>
+      <p>Название: <strong>{{ name }}</strong></p>
+      <p>Версия: <strong>{{ version }}</strong></p>
+
+      <button className="btn" @click="changeInfo">Изменить</button>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapMutations, mapActions} from 'vuex'
-import TheNavbar from './components/TheNavbar.vue'
 export default {
-  components: {TheNavbar},
-  // computed: mapGetters(['counter', 'doubleCounter', 'uppercaseTitle']),
-  computed: {
-    ...mapGetters(['uppercaseTitle']),
-    ...mapGetters('count', ['counter', 'doubleCounter'])
+  data () {
+    return {
+      name: 'VueJS',
+      version: 3
+    }
   },
   methods: {
-    ...mapMutations({
-      add: 'count/increment'
-    }),
-    // add() {
-    //   this.increment
-    //   // this.$store.commit('increment')
-    // },
-    ...mapActions('count', ['incrementAsync']),
-    // incrementAsync() {
-    //   this.$store.dispatch('incrementAsync', {
-    //     value: 10,
-    //     delay: 250
-    //   })
-    // },
-    decrement() {
-      this.$store.state.counter++
+    changeInfo () {
+      this.name = 'Vue JS!'
+      this.version = 4
     }
   }
 }
 </script>
-
-<style>
-</style>
