@@ -9,7 +9,7 @@
   export default {
     computed: {
       counter() {
-        return this.$store.state.counter
+        return this.$store.getters.counter
       }
     },
     methods: {
@@ -20,6 +20,7 @@
           value: 5
         })
       }
-    }
+    },
+
   }
 </script>
