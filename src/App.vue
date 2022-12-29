@@ -25,7 +25,8 @@ import {
   isRef,
   isReactive,
   computed,
-  watch
+  watch,
+  provide
 } from 'vue'
 
 export default {
@@ -54,8 +55,10 @@ export default {
         version.value = num
     }
 
+    provide('name', name)
+    provide('version', version)
+
     return {
-      name, version,
       change: changeInfo,
       firstName,
       changeVersion

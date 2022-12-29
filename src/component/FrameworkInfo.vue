@@ -8,11 +8,10 @@
 </template>
 
 <script>
-import {computed} from 'vue'
+import {computed, inject} from 'vue'
 
 export default {
   name: 'FrameworkInfo',
-  props: ['name', 'version'],
   emits: ['change-version'],
   setup(props, context) {
 
@@ -20,9 +19,13 @@ export default {
       context.emit('change-version', 3)
     }
 
+    const version = inject('version')
+
     return {
+      name: inject('name'),
+      version: version,
       changeToThree: change,
-      doubleVersion: computed(() => props.version * 2)
+      doubleVersion: computed(() => version.value * 2)
     }
 
   }
