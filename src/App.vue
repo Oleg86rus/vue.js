@@ -3,56 +3,58 @@
     <div className="card">
       <h1>Vue Composition Api</h1>
       <small>data, methods, computed, watch</small>
-      <hr>
-      <p>Название: <strong>{{ name }}</strong></p>
-      <p>Версия: <strong>{{ version }}</strong></p>
+
+      <div class="form-control">
+<!--        <input type="text" ref="textInput"/>-->
+        <input type="text" v-model="firstName"/>
+      </div>
 
       <button className="btn" @click="change">Изменить</button>
     </div>
+
+    <FrameworkInfo :name="name" :version="version"/>
   </div>
 </template>
 
 <script>
-import {ref, reactive, toRefs, isRef, isReactive} from 'vue'
+import FrameworkInfo from './component/FrameworkInfo.vue'
+import {
+  ref,
+  reactive,
+  toRefs,
+  isRef,
+  isReactive,
+  computed,
+  watch
+} from 'vue'
+
 export default {
   setup() {
     const name = ref('VueJS')
     const version = ref('3')
-    // const framework = ref({
-
-    console.log(isRef(name))
-    console.log(isRef(version.value))
+    const textInput = ref(null)
+    const firstName = ref('')
 
     const framework = reactive({
       name: ref('VueJS'),
       version: ref('3')
     })
-    console.log(isReactive(framework.name))
+
+    watch(firstName, (newValues, oldValues) => {
+      console.log(newValues)
+      console.log(oldValues)
+    })
+
     function changeInfo() {
       name.value = 'Vue JS !'
       version.value = 31
-      // framework.name = 'Vue JS !'
-      // framework.version = 31
     }
     return {
-      name: name,
-      version: version,
-      // ...toRefs(framework),
-      // framework: framework,
-      change: changeInfo
+      name, version,
+      change: changeInfo,
+      firstName
     }
   },
-  // data () {
-  //   return {
-  //     name: 'VueJS',
-  //     version: 3
-  //   }
-  // },
-  // methods: {
-  //   changeInfo () {
-  //     this.name = 'Vue JS!'
-  //     this.version = 4
-  //   }
-  // }
+  components: {FrameworkInfo}
 }
 </script>
