@@ -1,69 +1,16 @@
 <template>
-  <div className="container">
-    <div className="card">
-      <h1>Vue Composition Api</h1>
-      <small>data, methods, computed, watch</small>
-
-      <div class="form-control">
-<!--        <input type="text" ref="textInput"/>-->
-        <input type="text" v-model="firstName"/>
-      </div>
-
-      <button className="btn" @click="change">Изменить</button>
-    </div>
-
-    <FrameworkInfo :name="name" :version="version" @change-version="changeVersion"/>
+  <header class="navbar">
+    <strong>Vue Composition API</strong>
+    <ul class="navbar-menu">
+      <li>
+        <router-link to="/">Главная</router-link>
+      </li>
+      <li>
+        <router-link to="/reusable">Переиспользование</router-link>
+      </li>
+    </ul>
+  </header>
+  <div class="container with-nav">
+    <router-view></router-view>
   </div>
 </template>
-
-<script>
-import FrameworkInfo from './component/FrameworkInfo.vue'
-import {
-  ref,
-  reactive,
-  toRefs,
-  isRef,
-  isReactive,
-  computed,
-  watch,
-  provide
-} from 'vue'
-
-export default {
-  setup() {
-    const name = ref('VueJS')
-    const version = ref('3')
-    const textInput = ref(null)
-    const firstName = ref('')
-
-    const framework = reactive({
-      name: ref('VueJS'),
-      version: ref('3')
-    })
-
-    watch(firstName, (newValues, oldValues) => {
-      console.log(newValues)
-      console.log(oldValues)
-    })
-
-    function changeInfo() {
-      name.value = 'Vue JS !'
-      version.value = 31
-    }
-
-    function changeVersion(num) {
-        version.value = num
-    }
-
-    provide('name', name)
-    provide('version', version)
-
-    return {
-      change: changeInfo,
-      firstName,
-      changeVersion
-    }
-  },
-  components: {FrameworkInfo}
-}
-</script>
