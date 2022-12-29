@@ -3,6 +3,8 @@
     <p>Название: <strong>{{ name }}</strong></p>
     <p>Версия: <strong>{{ version }} ({{ doubleVersion }})</strong></p>
   </div>
+
+  <button class="btn warning" @click="changeToThree">Изменить на 3 версию</button>
 </template>
 
 <script>
@@ -11,9 +13,15 @@ import {computed} from 'vue'
 export default {
   name: 'FrameworkInfo',
   props: ['name', 'version'],
-  setup(props) {
-    console.log(props)
+  emits: ['change-version'],
+  setup(props, context) {
+
+    function change() {
+      context.emit('change-version', 3)
+    }
+
     return {
+      changeToThree: change,
       doubleVersion: computed(() => props.version * 2)
     }
 

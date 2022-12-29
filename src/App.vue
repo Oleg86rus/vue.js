@@ -12,7 +12,7 @@
       <button className="btn" @click="change">Изменить</button>
     </div>
 
-    <FrameworkInfo :name="name" :version="version"/>
+    <FrameworkInfo :name="name" :version="version" @change-version="changeVersion"/>
   </div>
 </template>
 
@@ -49,10 +49,16 @@ export default {
       name.value = 'Vue JS !'
       version.value = 31
     }
+
+    function changeVersion(num) {
+        version.value = num
+    }
+
     return {
       name, version,
       change: changeInfo,
-      firstName
+      firstName,
+      changeVersion
     }
   },
   components: {FrameworkInfo}
