@@ -25,13 +25,10 @@ export default {
     const router = useRouter()
     const route = useRoute()
     const navigate = () =>  router.push('/')
-    const {alert, toggle, close} = useAlert()
 
     return {
       navigate,
-      alert,
-      toggle,
-      close
+      ...useAlert(true)
     }
   },
   components: {AppAlert}
