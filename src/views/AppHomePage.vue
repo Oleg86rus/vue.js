@@ -1,4 +1,11 @@
 <template>
+  <app-alert
+      v-if="alert"
+      title="Работаем с Composition"
+      type="danger"
+      @close="close"
+  ></app-alert>
+
   <div class="container with-nav">
     <div class="card">
       <h1>Vue Composition Api</h1>
@@ -9,6 +16,7 @@
       </div>
 
       <button class="btn" @click="change">Изменить</button>
+      <button class="btn danger" @click="toggle">Alert</button>
     </div>
 
     <FrameworkInfo :name="name" :version="version" @change-version="changeVersion"/>
@@ -17,6 +25,7 @@
 
 <script>
 import FrameworkInfo from '../component/FrameworkInfo.vue'
+import AppAlert from '../component/AppAlert.vue'
 import {
   ref,
   reactive,
@@ -33,9 +42,11 @@ import {
   onMounted,
   onUnmounted
 } from 'vue'
+import { useAlert } from '../use/alert'
 
 export default {
   setup() {
+    const {alert, toggle, close} = useAlert()
     const name = ref('VueJS')
     const version = ref('3')
     const firstName = ref('')
@@ -84,9 +95,12 @@ export default {
     return {
       change: changeInfo,
       firstName,
-      changeVersion
+      changeVersion,
+      alert,
+      toggle,
+      close
     }
   },
-  components: {FrameworkInfo}
+  components: {FrameworkInfo, AppAlert}
 }
 </script>
